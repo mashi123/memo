@@ -1,5 +1,6 @@
 ## コンテナのネットワークインターフェースの変え方（Ubuntu）
-ubuntuコンテナで動作確認。
+ubuntuコンテナで動作確認。  
+参考URL: https://askubuntu.com/questions/1317036/how-to-rename-a-network-interface-in-20-04
 
 ### ベースコンテナ起動
 ```
@@ -14,7 +15,8 @@ apt install netplan.io
 apt install systemd udev init
 ```
 
-(参考)
+(参考)  
+systemdを動かすために以下を参考にした。
 - https://genchan.net/it/virtualization/docker/13093/
 
 ### コンテナ再作成
