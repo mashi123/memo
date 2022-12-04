@@ -12,7 +12,7 @@
 - MSIL
   - .NETのコードをコンパイルしたときに生成されるIL
 - その他
-  - C++/CLI, C#のコードを困憊すると、MSILの中間コードが生成される
+  - C++/CLI, C#のコードをコンパイルすると、MSILの中間コードが生成される
   - 通常のCやC++は、ネイティブコードにコンパイルされる
   - このため、後述のツールによる扱われ方も形式により異なってくる
 - PE (Portable Executable)
@@ -21,4 +21,30 @@
   - たぶんネイティブコード、ILいずれもPE形式で作成され、中身で区別されている。
 
 # ツール
+### dumpbin
+- コマンドラインで操作するツール。Visual Studioに含まれる
+- 逆アセンブル、依存関係、インポートしているモジュールの一覧出力等ができる
+- IL形式のものは情報がほぼ出ない
+- 使えそうなオプション
+  - /DEPENDENTS
+  - /DISASM[:{BYTES|NOBYTES|NOWIDE|WIDE}]
+  - /EXPORTS
+  - /IMPORTS[:ファイル名]
+- ネイティブコードのモジュールは、これで参照しているDLLがわかると思われる
+- /IMPORT オプションで使っている関数もわかるかも(全部でるかもしれないが)
+### dependencies
+- コマンドライン/GUIあり。OSS(GitHubにある)
+- dependency walkerの後継として作成され、exe,dllの依存関係を出力できる(依存のchainも)
+- 関数は出力できない？
+- 制限あり
+  - Only direct, forwarded and delay load dependencies are supported. Dynamic loading via LoadLibrary are not supported
+
+### ildasm
+- https://learn.microsoft.com/ja-jp/dotnet/framework/tools/ildasm-exe-il-disassembler
+- コマンドライン/GUIで操作するツール。Visual Studioに含まれる
+- ILの逆アセンブラ
+- 共通仕様はここにスペックがある：https://www.ecma-international.org/publications-and-standards/standards/ecma-335/
+  - これを見ると「.module extern」を探せば参照している外部DLLがわかりそう。そこから使っている関数もわかるか。
+
+### ILSpy
 
