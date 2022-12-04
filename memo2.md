@@ -116,7 +116,11 @@ File Type: DLL
 - visualstudio
   - コードマップ：https://learn.microsoft.com/ja-jp/visualstudio/modeling/map-dependencies-across-your-solutions?view=vs-2022
   - 依存関係図：https://learn.microsoft.com/ja-jp/visualstudio/modeling/create-layer-diagrams-from-your-code?view=vs-2022
-  - これらは、Professional edition	
+  - これらは、`Professional edition`でも読み取りはサポート
+- ReSharper
+- 参考
+  - https://en.wikipedia.org/wiki/List_of_tools_for_static_code_analysis
+
 
 
 
