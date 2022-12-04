@@ -32,6 +32,56 @@
   - /IMPORTS[:ファイル名]
 - ネイティブコードのモジュールは、これで参照しているDLLがわかると思われる
 - /IMPORT オプションで使っている関数もわかるかも(全部でるかもしれないが)
+
+(実行例)
+```
+>dumpbin.exe xxx.dll /dependents
+Microsoft (R) COFF/PE Dumper Version 14.34.31933.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file xxx1.dll
+
+File Type: DLL
+
+  Image has the following dependencies:
+
+    VCRUNTIME140D.dll
+    ucrtbased.dll
+    KERNEL32.dll
+
+  Summary
+
+        1000 .00cfg
+        1000 .data
+        1000 .idata
+                        (省略)
+```                          
+
+```
+>dumpbin.exe xxx.dll /imports
+Microsoft (R) COFF/PE Dumper Version 14.34.31933.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file xxx.dll
+
+File Type: DLL
+
+  Section contains the following imports:
+
+    VCRUNTIME140D.dll
+             180020150 Import Address Table
+             1800204B0 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                          31 __vcrt_LoadLibraryExW
+                          2F __vcrt_GetModuleHandleW
+                          3C memcpy
+                        (省略)
+```                          
+
 ### dependencies
 - コマンドライン/GUIあり。OSS(GitHubにある)
 - dependency walkerの後継として作成され、exe,dllの依存関係を出力できる(依存のchainも)
@@ -41,10 +91,32 @@
 
 ### ildasm
 - https://learn.microsoft.com/ja-jp/dotnet/framework/tools/ildasm-exe-il-disassembler
-- コマンドライン/GUIで操作するツール。Visual Studioに含まれる
+- コマンドライン/GUIで操作するツール。Visual Studioに含まれる(`C:\Program Files (x86)\Microsoft SDKs\Windows`あたりにある)
 - ILの逆アセンブラ
 - 共通仕様はここにスペックがある：https://www.ecma-international.org/publications-and-standards/standards/ecma-335/
   - これを見ると「.module extern」を探せば参照している外部DLLがわかりそう。そこから使っている関数もわかるか。
 
+(使用例)
+```
+>ildasm.exe  /html WindowsFormsApp1.exe  /all /output=ildasm-test.html
+```
+
 ### ILSpy
+- ildasm1とできることは似ているが、GUIで表示される情報は多そう
+- ILの逆アセンブラ
+- コマンドラインでは使えないっぽい
+
+# コールグラフのツール
+- Ndepend
+  - 有償
+- Understand
+  - 有償
+- doxygen
+  - freeだが、他パッケージの依存は出なそう
+- visualstudio
+  - コードマップ：https://learn.microsoft.com/ja-jp/visualstudio/modeling/map-dependencies-across-your-solutions?view=vs-2022
+  - 依存関係図：https://learn.microsoft.com/ja-jp/visualstudio/modeling/create-layer-diagrams-from-your-code?view=vs-2022
+  - これらは、Professional edition	
+
+
 
